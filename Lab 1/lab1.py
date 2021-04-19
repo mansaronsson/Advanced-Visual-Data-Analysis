@@ -1,5 +1,4 @@
 import numpy as np
-import statistics as st
 from scipy.stats import binom
 
 f = open("Lab 1 Data.txt", "r")
@@ -12,7 +11,7 @@ for char in f.read() :
 f.close()
 D = np.reshape(D[1::], (60, 200))
 
-# Idea: A human pretenting to be rendom will follow certain pattern3 more often than a random number generator
+# Idea: A human pretending to be random will follow certain pattern3 more often than a random number generator
 
 # For distribution of 0:s and 1:s
 mean1 = 100
@@ -54,7 +53,7 @@ std3 = binom.std(n3, p3)
 std4 = binom.std(n4, p4)
 
 # Count number of patterns
-nStd = 3
+nStd = 2
 for i in range(np.size(D, 0)) :
 
     if sums[i] < mean1 - nStd*std1 or sums[i] > mean1 + nStd*std1 :
@@ -90,12 +89,29 @@ for i in range(np.size(D, 0)) :
         if v < mean4 - nStd*std4 or v > mean4 + nStd*std4 :
             pattern4Deviations[i] += 1
 
+# Printing data that I added to a tables in the report
+print(mean1, mean2, mean3, mean4)
+print(std1, std2, std3, std4)
+
+print(sums)
+print(pattern2Cnt)
+print(pattern3Cnt)
+print(pattern4Cnt)
+
 print(sumsDeviations)
 print(pattern2Deviations)
 print(pattern3Deviations)
 print(pattern4Deviations)
 
-print(np.nonzero(sumsDeviations))
-print(np.nonzero(pattern2Deviations))
-print(np.nonzero(pattern3Deviations))
-print(np.nonzero(pattern4Deviations))
+print(np.array(np.nonzero(sumsDeviations))+1)
+print(np.array(np.nonzero(pattern2Deviations))+1)
+print(np.array(np.nonzero(pattern3Deviations))+1)
+print(np.array(np.nonzero(pattern4Deviations))+1)
+
+for i, x in enumerate(pattern3Deviations):
+    if x > 1:
+        print(i+1)
+
+for i, x in enumerate(pattern4Deviations):
+    if x > 1:
+        print(i+1)
